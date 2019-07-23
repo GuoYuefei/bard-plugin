@@ -11,7 +11,7 @@ var V = PluginServer{struct {
 	Pri    uint16
 	DESKEY []byte
 	END_FLAG []byte
-}{ID: string("base"), Ver: string("0.1.0"), Pri: uint16(0x5111), DESKEY: []byte("12345678"), END_FLAG: []byte("\r\n\r\n")}}
+}{ID: string("base"), Ver: string("0.1.0"), Pri: uint16(0x3111), DESKEY: []byte("12345678"), END_FLAG: []byte("\r\n\r\n")}}
 
 type PluginServer struct {
 	base.Plugin
@@ -21,7 +21,7 @@ func (p PluginServer) Camouflage(bs []byte, send bool) ([]byte, int) {
 	if send {
 		return get.Response(bs)
 	} else {
-		return get.Clear(bs, []byte("\r\n\r\n"))
+		return get.Clear(bs)
 	}
 }
 

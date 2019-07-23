@@ -22,13 +22,14 @@ func (p Plugin) EndCam() []byte {
 // send 为true时可以从返回值返回字节数组
 // send 为false时只能从实参中返回字节数组
 
+// 接收时， 返回byte数字是无效字段，仅int有效
 func (p Plugin) Camouflage(bs []byte, send bool) ([]byte, int) {
 	//fmt.Printf("%s: Camouflage\t %x\n", p.ID, p.Pri)
 	if send {
 		return get.Request(bs)
 	} else {
 		//    "Keep-Alive\r\n\r\n"
-		return get.Clear(bs, []byte("Encoding\r\n\r\n"))
+		return get.Clear(bs)
 	}
 }
 
