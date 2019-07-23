@@ -10,12 +10,13 @@ import (
 type Plugin struct {
 	ID  string
 	Ver string
-	Pri uint16
+	Pri uint16				// pOAC
 	DESKEY []byte
+	END_FLAG []byte
 }
 
-func (p Plugin) EndCam() byte {
-	return 0x0ff
+func (p Plugin) EndCam() []byte {
+	return p.END_FLAG
 }
 
 // send 为true时可以从返回值返回字节数组
@@ -26,7 +27,8 @@ func (p Plugin) Camouflage(bs []byte, send bool) ([]byte, int) {
 	if send {
 		return get.Request(bs)
 	} else {
-		return get.Clear(bs)
+		//    "Keep-Alive\r\n\r\n"
+		return get.Clear(bs, []byte("Encoding\r\n\r\n"))
 	}
 }
 
@@ -39,9 +41,9 @@ func (p Plugin) AntiSniffing(bs []byte, send bool) ([]byte, int) {
 	}
 	if send {
 		// 加密
-		return CFB.CFBEncrypter(cipherBlock, bs)
+		return CFB.CFBEncrypter(cipherBlock, des.BlockSize, bs)
 	} else {
-		return CFB.CFBDecrypter(cipherBlock, bs)
+		return CFB.CFBDecrypter(cipherBlock, des.BlockSize, bs)
 	}
 }
 
