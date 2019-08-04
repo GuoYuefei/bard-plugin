@@ -1,8 +1,8 @@
 package base
 
 import (
-	"bard-plugin/util/CFB"
-	"bard-plugin/util/get"
+	"bard/bard-plugin/util/CFB"
+	"bard/bard-plugin/util/get"
 	"crypto/des"
 	"fmt"
 )

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"bard-plugin/base"
-	"bard-plugin/util/get"
+	"bard/bard-plugin/base"
+	"bard/bard-plugin/util/get"
 )
 
 var V = PluginServer{struct {

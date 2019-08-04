@@ -1,3 +1,3 @@
-module bard-plugin
+module bard/bard-plugin
 
 go 1.12
