@@ -49,7 +49,7 @@ func (p Plugin) AntiSniffing(bs []byte, send bool) ([]byte, int) {
 }
 
 func (p Plugin) Ornament(bs []byte, send bool) ([]byte, int) {
-	fmt.Printf("%s: Ornament\t %x\n", p.ID, p.Pri)
+	//fmt.Printf("%s: Ornament\t %x\n", p.ID, p.Pri)
 	return bs, len(bs)
 }
 
