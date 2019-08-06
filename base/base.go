@@ -7,6 +7,14 @@ import (
 	"fmt"
 )
 
+var V = Plugin{
+	ID:  "base",
+	Ver: "0.1.0",
+	Pri: 0x2111,					// 关闭了c函数
+	DESKEY: []byte("12345678"),
+	END_FLAG: []byte("\r\n\r\n"),
+}
+
 type Plugin struct {
 	ID  string
 	Ver string
@@ -49,7 +57,7 @@ func (p Plugin) AntiSniffing(bs []byte, send bool) ([]byte, int) {
 }
 
 func (p Plugin) Ornament(bs []byte, send bool) ([]byte, int) {
-	fmt.Printf("%s: Ornament\t %x\n", p.ID, p.Pri)
+	//fmt.Printf("%s: Ornament\t %x\n", p.ID, p.Pri)
 	return bs, len(bs)
 }
 
