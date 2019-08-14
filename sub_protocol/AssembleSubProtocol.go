@@ -1,9 +1,11 @@
 package sub_protocol
 
-import "net"
+import (
+	"io"
+)
 
 
-type ReadDoFuncType = func(net.Conn) ([]byte, int)
+type ReadDoFuncType = func(reader io.Reader) ([]byte, int)
 type WriteDoFunType = func([]byte) ([]byte, int)
 
 // 可以通过组合AssembleTCSP来拓展它
@@ -31,8 +33,8 @@ func (a AssembleTCSP)RegisterDo(do1 ReadDoFuncType, do2 WriteDoFunType) {
 	a.writeDo = do2
 }
 
-func (a AssembleTCSP)ReadDo(conn net.Conn) ([]byte, int) {
-	return a.readDo(conn)
+func (a AssembleTCSP)ReadDo(reader io.Reader) ([]byte, int) {
+	return a.readDo(reader)
 }
 
 func (a AssembleTCSP)WriteDo(bs []byte) ([]byte, int) {

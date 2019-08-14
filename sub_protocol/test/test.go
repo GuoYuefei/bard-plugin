@@ -7,16 +7,16 @@ package test
 
 import (
 	"bard/bard-plugin/sub_protocol"
-	"bard/bard-plugin/sub_protocol/util"
 	"fmt"
-	"net"
+	"io"
 )
 
-func readDo(conn net.Conn) ([]byte, int) {
+func readDo(reader io.Reader) ([]byte, int) {
 	// default len is two byte
 	lslice := make([]byte, 2)
-	_, err := util.ReadFull(conn, lslice)
-	if err != nil {
+	_, err := io.ReadFull(reader, lslice)
+	if err != nil && err != io.EOF {
+		//fmt.Println("readdo readfull")
 		return nil, 0
 	}
 	// 大端
