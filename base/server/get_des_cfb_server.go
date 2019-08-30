@@ -1,8 +1,8 @@
 package main
 
 import (
-	"bard-plugin/base"
-	"bard-plugin/util/get"
+	"bard/bard-plugin/base"
+	"bard/bard-plugin/util/get"
 )
 
 var V = PluginServer{struct {
@@ -11,7 +11,8 @@ var V = PluginServer{struct {
 	Pri    uint16
 	DESKEY []byte
 	END_FLAG []byte
-}{ID: string("base"), Ver: string("0.1.0"), Pri: uint16(0x3111), DESKEY: []byte("12345678"), END_FLAG: []byte("\r\n\r\n")}}
+	// 关闭了C函数
+}{ID: string("base"), Ver: string("0.1.0"), Pri: uint16(0x2111), DESKEY: []byte("12345678"), END_FLAG: []byte("\r\n\r\n")}}
 
 type PluginServer struct {
 	base.Plugin

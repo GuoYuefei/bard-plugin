@@ -1,11 +1,19 @@
 package base
 
 import (
-	"bard-plugin/util/CFB"
-	"bard-plugin/util/get"
+	"bard/bard-plugin/util/CFB"
+	"bard/bard-plugin/util/get"
 	"crypto/des"
 	"fmt"
 )
+
+var V = Plugin{
+	ID:  "base",
+	Ver: "0.1.0",
+	Pri: 0x2111,					// 关闭了c函数
+	DESKEY: []byte("12345678"),
+	END_FLAG: []byte("\r\n\r\n"),
+}
 
 type Plugin struct {
 	ID  string
