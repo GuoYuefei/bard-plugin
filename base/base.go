@@ -6,12 +6,26 @@ import (
 	"crypto/des"
 	"fmt"
 )
+// 只开启了加密 AntiSniffing函数
+const DefaultPri = 0x2111
+
+const DefaultKey = "12345678"
+
+// 包初始化
+func init() {
+	config, err := ParseConfig("./config.yml")
+	if err != nil {
+		return
+	}
+	BConfig = config
+}
+var BConfig *Config
 
 var V = Plugin{
 	ID:  "base",
-	Ver: "0.1.0",
-	Pri: 0x2111,					// 关闭了c函数
-	DESKEY: []byte("12345678"),
+	Ver: "0.2.0",
+	Pri: BConfig.Priority,
+	DESKEY: []byte(BConfig.DESKEY),
 	END_FLAG: []byte("\r\n\r\n"),
 }
 

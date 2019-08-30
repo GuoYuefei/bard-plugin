@@ -1,0 +1,5 @@
+# 这个如果不知道怎么配置可以不配置, 在主程序的plugin.go文件中有注释说明
+priority: 0x2111
+
+# 只需要8位就够了
+des_key: qwertyui
