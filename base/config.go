@@ -14,19 +14,24 @@ type Config struct {
 }
 
 func ParseConfig(path string) (config *Config, err error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	data, err := ioutil.ReadAll(file)
-	if err != nil {
-		return nil, err
-	}
+	var file *os.File
+	var data []byte
 	config = &Config{}
 
-	if err = yaml.Unmarshal(data, config); err != nil {
-		return nil, err
+	file, err = os.Open(path)
+	if err != nil {
+		goto Default
 	}
+	data, err = ioutil.ReadAll(file)
+	if err != nil {
+		goto Default
+	}
+
+	if err = yaml.Unmarshal(data, config); err != nil {
+		// nothing to do
+	}
+
+Default:
 	if config.Priority == 0 {
 		config.Priority = DefaultPri
 	}
@@ -35,5 +40,5 @@ func ParseConfig(path string) (config *Config, err error) {
 		config.DESKEY = DefaultKey
 	}
 
-	return config, nil
+	return config, err
 }

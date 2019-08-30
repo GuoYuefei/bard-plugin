@@ -5,29 +5,38 @@ import (
 	"bard/bard-plugin/util/get"
 	"crypto/des"
 	"fmt"
+	"log"
 )
 // 只开启了加密 AntiSniffing函数
 const DefaultPri = 0x2111
 
 const DefaultKey = "12345678"
 
+const (
+	ID = "base"
+	Ver = "0.2.0"
+	END_FLAG = "\r\n\r\n"
+)
+
 // 包初始化
 func init() {
-	config, err := ParseConfig("./config.yml")
+	// ParseConfig保证了一定有正确Config输出
+	config, err := ParseConfig("./base_plugin_config.yml")
 	if err != nil {
-		return
+		log.Println(err)
 	}
 	BConfig = config
+	V = Plugin{
+		ID:  ID,
+		Ver: Ver,
+		Pri: BConfig.Priority,
+		DESKEY: []byte(BConfig.DESKEY)[:des.BlockSize],
+		END_FLAG: []byte(END_FLAG),
+	}
 }
 var BConfig *Config
 
-var V = Plugin{
-	ID:  "base",
-	Ver: "0.2.0",
-	Pri: BConfig.Priority,
-	DESKEY: []byte(BConfig.DESKEY),
-	END_FLAG: []byte("\r\n\r\n"),
-}
+var V Plugin
 
 type Plugin struct {
 	ID  string

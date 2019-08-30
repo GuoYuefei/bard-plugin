@@ -3,6 +3,7 @@ package main
 import (
 	"bard/bard-plugin/base"
 	"bard/bard-plugin/util/get"
+	"crypto/des"
 )
 
 var V = PluginServer{struct {
@@ -12,7 +13,8 @@ var V = PluginServer{struct {
 	DESKEY []byte
 	END_FLAG []byte
 	// 关闭了C函数
-}{ID: string("base"), Ver: string("0.1.0"), Pri: uint16(0x2111), DESKEY: []byte("12345678"), END_FLAG: []byte("\r\n\r\n")}}
+}{ID: string(base.ID), Ver: string(base.Ver), Pri: base.BConfig.Priority,
+	DESKEY: []byte(base.BConfig.DESKEY)[:des.BlockSize], END_FLAG: []byte(base.END_FLAG)}}
 
 type PluginServer struct {
 	base.Plugin
